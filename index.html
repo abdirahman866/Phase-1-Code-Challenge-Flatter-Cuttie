@@ -1,65 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        li {
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        button.delete {
-            background-color: #dc3545;
-        }
-        input {
-            padding: 10px;
-            margin-bottom: 10px;
-            width: calc(100% - 20px);
-        }
-    </style>
-</head>
-<body>
 
-<div class="container">
-    <h1>To-Do List</h1>
-    <input type="text" id="new-task" placeholder="Add a new task">
-    <button id="add-task">Add Task</button>
-    <ul id="task-list"></ul>
+<html>
+  <head>
+    <title>Flatacuties</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="logo">
+      <h1>Flatacuties</h1>
+    </div>
+
+<div id="character-bar">
+  <!-- show characters names here -->
 </div>
 
-<script src="app.js"></script>
-</body>
+<div class="characterInfo">
+  <div id="detailed-info">
+    <p id="name">Character's Name</p>
+    <img
+      id="image"
+      src="assets/dummy.gif"
+      alt="Character's Name"
+    />
+    <h4>Total Votes: <span id="vote-count">Character's Votes</span></h4>
+    <form id="votes-form">
+      <input type="text" placeholder="Enter Votes" id="votes" name="votes" />
+      <input type="submit" value="Add Votes" />
+    </form>
+    <button id="reset-btn">Reset Votes</button>
+  </div>
+
+  <h4>Add New Character</h4>
+  <form id="character-form">
+    <div>
+      <label for="new-name">Name</label>
+      <input type="text" id="new-name" name="new-name" required />
+    </div>
+    <div>
+      <label for="new-image">Image URL</label>
+      <input type="text" id="new-image" name="new-image" required />
+    </div>
+    <input type="submit" value="Add Character" />
+  </form>
+</div>
+
+<script src="src/index.js"></script>
+  </body>
 </html>

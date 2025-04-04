@@ -1,74 +1,42 @@
-// Sample tasks (simulating server data)
-const tasks = [
-    { id: 1, text: "Learn JavaScript", completed: false },
-    { id: 2, text: "Build a project", completed: false }
-];
+const characterName = document.getElementById("character-name");
+const characterImage = document.getElementById("character-image");
+const voteCount = document.getElementById("vote-count");
+const voteForm = document.getElementById("vote-form");
+const voteInput = document.getElementById("vote-input");
+const resetBtn = document.getElementById("reset-btn");
+const newCharacterForm = document.getElementById("new-character-form");
+const newName = document.getElementById("new-name");
+const newImage = document.getElementById("new-image");
+const characterList = document.getElementById("character-list");
 
-// DOM Elements
-const taskList = document.getElementById('task-list');
-const newTaskInput = document.getElementById('new-task');
-const addTaskButton = document.getElementById('add-task');
+let currentVotes = 0;
 
-// Event listeners
-addTaskButton.addEventListener('click', addTask);
-taskList.addEventListener('click', handleTaskClick);
+voteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const addedVotes = parseInt(voteInput.value);
+  if (!isNaN(addedVotes)) {
+    currentVotes += addedVotes;
+    voteCount.textContent = currentVotes;
+    voteInput.value = "";
+  }
+});
 
-// Functions
-function renderTasks() {
-    taskList.innerHTML = ''; // Clear current list
-    tasks.forEach(task => {
-        const li = document.createElement('li');
-        li.setAttribute('data-id', task.id);
-        li.classList.toggle('completed', task.completed);
-        li.innerHTML = `
-            <span>${task.text}</span>
-            <button class="delete">Delete</button>
-        `;
-        taskList.appendChild(li);
-    });
-}
+resetBtn.addEventListener("click", () => {
+  currentVotes = 0;
+  voteCount.textContent = currentVotes;
+});
 
-function addTask() {
-    const newTaskText = newTaskInput.value.trim();
-    if (newTaskText) {
-        const newTask = { id: Date.now(), text: newTaskText, completed: false };
-        tasks.push(newTask);
-        newTaskInput.value = ''; // Clear input
-        renderTasks(); // Re-render task list
-    }
-}
+newCharacterForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = newName.value;
+  const imageUrl = newImage.value;
 
-function handleTaskClick(event) {
-    const li = event.target.closest('li');
-    if (event.target.classList.contains('delete')) {
-        deleteTask(li);
-    } else {
-        toggleTaskCompletion(li);
-    }
-}
+  characterName.textContent = name;
+  characterImage.src = imageUrl;
+  characterImage.alt = name;
+  currentVotes = 0;
+  voteCount.textContent = currentVotes;
 
-function toggleTaskCompletion(li) {
-    const taskId = li.getAttribute('data-id');
-    const task = tasks.find(task => task.id == taskId);
-    task.completed = !task.completed;
-    renderTasks();
-}
-
-function deleteTask(li) {
-    const taskId = li.getAttribute('data-id');
-    const taskIndex = tasks.findIndex(task => task.id == taskId);
-    tasks.splice(taskIndex, 1);
-    renderTasks();
-}
-
-// Simulate a server fetch
-function fetchTasksFromServer() {
-    // Simulate a server response with a delay
-    setTimeout(() => {
-        tasks.push({ id: 3, text: "Complete code challenge", completed: false });
-        renderTasks();
-    }, 1000);
-}
-
-// Initial render
-fetchTasksFromServer();
+  newName.value = "";
+  newImage.value = "";
+});
